@@ -1,0 +1,14 @@
+version: '3'
+services:
+  jason:
+    restart: always
+    container_name: pylti1p3-flask-example
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./configs:/configs
+      - ./app:/app
+    working_dir: /app
+    ports:
+      - "9001:9001"

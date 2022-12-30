@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>{{PAGE_TITLE}}</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+
+
+<h1 style="text-align: center;">LAUNCH: LTI Session Info</h1>
+<div  style="text-align: center;" >
+    <a href="{{ url_for('dance') }}" class="btn btn-primary btn-lg btn-block" role="button" aria-pressed="true">API Authorization</a>
+</div>
+
+
+<h2>User Name</h2>
+<div>{{user_name}}</div>
+
+<h2>User Email</h2>
+<div>{{user_email}}</div>
+
+<h2>User SIS ID</h2>
+<div>{{user_sis_id}}</div>
+
+<h2>Course Title</h2>
+<div>{{course_title}}</div>
+
+<h2>Course ID</h2>
+<div>{{course_id}}</div>
+
+<h2>Course SIS ID</h2>
+<div>{{course_sis_id}}</div>
+
+<h2>Course Roles</h2>
+<div>{{course_roles}}</div>
+
+<h2>Launch ID</h2>
+<div>{{launch_id}}</div>
+
+<h2>Launch Data</h2>
+<div>{{launch_data}}</div>
+
+
+
+
+
+</body>
+
+</html>
