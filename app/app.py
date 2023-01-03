@@ -13,9 +13,9 @@ from pylti1p3.registration import Registration
 
 PAGE_TITLE = 'Canvas LTI Framework with API Integration'
 API_BASE = 'https://biztechcollege.instructure.com'
-CLIENT_ID_API = 187330000000000104
-CLIENT_SECRET_API = 'AViMOf4K4cOXT2yLcchw6Wzg6sxYfM8sTgDf1WzKTQrvnrhisTyCkxcAGIT0dMaa'#18733~NH2yqQUAicdAUdUM2UsVECjW6RorTc0StQi82uL8YdSiCjkg9RTWcphF9UsIwEVM
-REDIRECT_URI_API = 'https://jasonhemu-fictional-engine-x5pg7q6vp4fpj5r-9001.preview.app.github.dev/oauth/'
+CLIENT_ID_API = 187330000000000107
+CLIENT_SECRET_API = 'qRNvqmFP0my9gs2cyiDemPaTHdIQxfws4hemr4tqOk4REc06lkuvHmzV4xT2trjr'#18733~NH2yqQUAicdAUdUM2UsVECjW6RorTc0StQi82uL8YdSiCjkg9RTWcphF9UsIwEVM
+REDIRECT_URI_API = 'https://9001-sumitb007-ltitest-tqzr9hg17hc.ws-us80.gitpod.io/oauth/'
 OAUTH_URL = '{}/login/oauth2/auth?client_id={}&response_type=code&redirect_uri={}&state=BIZTECH'.format(
     API_BASE,
     CLIENT_ID_API,

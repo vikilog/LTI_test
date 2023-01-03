@@ -1,5 +1,5 @@
 {
-    "title": "Jason-LTI",
+    "title": "Sumit-LTI",
     "scopes": [
         "https://purl.imsglobal.org/spec/lti-ags/scope/lineitem",
         "https://purl.imsglobal.org/spec/lti-ags/scope/lineitem.readonly",
@@ -22,7 +22,7 @@
                         "visibility": "admins",
                         "default": "disabled",
                         "message_type": "LtiResourceLinkRequest",
-                        "target_link_uri": "https://jasonhemu-fictional-engine-x5pg7q6vp4fpj5r-9001.preview.app.github.dev/launch/"
+                        "target_link_uri": "https://9001-sumitb007-ltitest-tqzr9hg17hc.ws-us80.gitpod.io/launch/"
                     }
                 ]
             },
@@ -37,9 +37,9 @@
         "kty": "RSA",
         "use": "sig"
     },
-    "description": "Jason-Test",
+    "description": "Sumit-Test",
     "custom_fields": {},
-    "public_jwk_url": "https://jasonhemu-fictional-engine-x5pg7q6vp4fpj5r-9001.preview.app.github.dev/jwks/",
-    "target_link_uri": "https://jasonhemu-fictional-engine-x5pg7q6vp4fpj5r-9001.preview.app.github.dev/launch/",
-    "oidc_initiation_url": "https://jasonhemu-fictional-engine-x5pg7q6vp4fpj5r-9001.preview.app.github.dev/login/"
+    "public_jwk_url": "https://9001-sumitb007-ltitest-tqzr9hg17hc.ws-us80.gitpod.io/jwks/",
+    "target_link_uri": "https://9001-sumitb007-ltitest-tqzr9hg17hc.ws-us80.gitpod.io/launch/",
+    "oidc_initiation_url": "https://9001-sumitb007-ltitest-tqzr9hg17hc.ws-us80.gitpod.io/login/"
 }
