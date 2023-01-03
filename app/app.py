@@ -98,6 +98,27 @@ def get_site_student_enrollment_count(canvas_site_id, access_token):
     return r
 
 
+def get_site_assignment_count(canvas_site_id, access_token):
+    api = '{}/api/v1/courses/{}/assignments'.format(API_BASE, canvas_site_id)
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
+    params = {
+        'include[]': ''
+    }
+    r = requests.get(api, params=params, headers=headers).json()
+    return r
+
+
+def get_site_student_names(canvas_site_id, access_token):
+    api = '{}/api/v1/courses/{}/users'.format(API_BASE, canvas_site_id)
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
+    params = {
+        'include[]': '',
+        'enrollment_type[]': 'student',
+    }
+    r = requests.get(api, params=params, headers=headers).json()
+    return r
+
+
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     tool_conf = ToolConfJsonFile(get_lti_config_path())
@@ -167,6 +188,8 @@ def oauth():
     if code:
         r = get_api_token_authorization(code)
         total_students = get_site_student_enrollment_count(course_id, r['access_token'])
+        total_assignments = get_site_assignment_count(course_id,r['access_token'])
+        student_names = get_site_student_names(course_id,r['access_token'])
     params = {
         'code': code,
         'access_token': r['access_token'],
@@ -182,6 +205,8 @@ def oauth():
         'course_sis_id': message_launch_data.get('https://purl.imsglobal.org/spec/lti/claim/lis', {}).get('course_offering_sourcedid', None),
         'course_roles': message_launch_data.get('https://purl.imsglobal.org/spec/lti/claim/roles', None),
         'course_total_students': total_students['total_students'],
+        'course_total_assignments': total_assignments,
+        'student_names': student_names,
 
     }
 
