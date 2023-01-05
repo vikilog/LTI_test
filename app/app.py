@@ -119,6 +119,24 @@ def get_site_student_names(canvas_site_id, access_token):
     return r
 
 
+def get_site_student_submissions(canvas_site_id, access_token,assignment_id):
+    api = '{}/api/v1/courses/{}/assignments/{}/submissions'.format(API_BASE, canvas_site_id,assignment_id)
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
+    params = {
+        'include[]': '',
+    }
+    r = requests.get(api, params=params, headers=headers).json()
+    return r
+
+def get_site_assess_submission(canvas_site_id, access_token,assignment_id,user_id,total_marks):
+    api = '{}/api/v1/courses/{}/assignments/{}/submissions/{}'.format(API_BASE, canvas_site_id,assignment_id,user_id)
+    headers = {'Authorization': 'Bearer {}'.format(access_token)}
+    params = {
+        'submission[posted_grade]': str(total_marks),
+    }
+    r = requests.put(api, params=params, headers=headers).json()
+    return r
+
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     tool_conf = ToolConfJsonFile(get_lti_config_path())
@@ -190,6 +208,8 @@ def oauth():
         total_students = get_site_student_enrollment_count(course_id, r['access_token'])
         total_assignments = get_site_assignment_count(course_id,r['access_token'])
         student_names = get_site_student_names(course_id,r['access_token'])
+        student_submissions = get_site_student_submissions(course_id, r['access_token'], 2851)
+        submission_assessment = get_site_assess_submission(course_id, r['access_token'], 2851, 709, 70)
     params = {
         'code': code,
         'access_token': r['access_token'],
@@ -207,6 +227,8 @@ def oauth():
         'course_total_students': total_students['total_students'],
         'course_total_assignments': total_assignments,
         'student_names': student_names,
+        'student_submissions' : student_submissions,
+        'submission_assessment' : submission_assessment,
 
     }
 
