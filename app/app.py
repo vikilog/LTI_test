@@ -15,12 +15,14 @@ PAGE_TITLE = 'Canvas LTI Framework with API Integration'
 API_BASE = 'https://biztechcollege.instructure.com'
 CLIENT_ID_API = 187330000000000107
 CLIENT_SECRET_API = 'qRNvqmFP0my9gs2cyiDemPaTHdIQxfws4hemr4tqOk4REc06lkuvHmzV4xT2trjr'#18733~NH2yqQUAicdAUdUM2UsVECjW6RorTc0StQi82uL8YdSiCjkg9RTWcphF9UsIwEVM
-REDIRECT_URI_API = 'https://9001-sumitb007-ltitest-tqzr9hg17hc.ws-us80.gitpod.io/oauth/'
+REDIRECT_URI_API = 'https://9001-sumitb007-ltitest-tqzr9hg17hc.ws-us81.gitpod.io/oauth/'
 OAUTH_URL = '{}/login/oauth2/auth?client_id={}&response_type=code&redirect_uri={}&state=BIZTECH'.format(
     API_BASE,
     CLIENT_ID_API,
     REDIRECT_URI_API
 )
+
+#log_creds={}
 
 class ReverseProxied:
     def __init__(self, app):
@@ -137,6 +139,13 @@ def get_site_assess_submission(canvas_site_id, access_token,assignment_id,user_i
     r = requests.put(api, params=params, headers=headers).json()
     return r
 
+'''def assess(x):
+    if(x=="pass"):
+        return 10
+    else:
+        return 0'''
+  
+
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     tool_conf = ToolConfJsonFile(get_lti_config_path())
@@ -181,6 +190,7 @@ def launch():
         'course_sis_id': message_launch_data.get('https://purl.imsglobal.org/spec/lti/claim/lis', {}).get('course_offering_sourcedid', None),
         'course_roles': message_launch_data.get('https://purl.imsglobal.org/spec/lti/claim/roles', None)
     }
+
     return render_template('launch.html', **params)
 
 @app.route('/dance/', methods=['GET']) #########
@@ -190,6 +200,7 @@ def dance():
 
 @app.route('/oauth/', methods=['GET', 'POST'])
 def oauth():
+
     tool_conf = ToolConfJsonFile(get_lti_config_path())
     flask_request = FlaskRequest()
     launch_data_storage = get_launch_data_storage()
@@ -202,6 +213,8 @@ def oauth():
     course_id = message_launch_data.get(
         'https://purl.imsglobal.org/spec/lti-nrps/claim/namesroleservice', {}
     ).get('context_memberships_url', None).split("/")[-2]
+
+        
     code = request.args.get('code')
     if code:
         r = get_api_token_authorization(code)
@@ -209,7 +222,27 @@ def oauth():
         total_assignments = get_site_assignment_count(course_id,r['access_token'])
         student_names = get_site_student_names(course_id,r['access_token'])
         student_submissions = get_site_student_submissions(course_id, r['access_token'], 2851)
-        submission_assessment = get_site_assess_submission(course_id, r['access_token'], 2851, 709, 70)
+        submission_assessment = get_site_assess_submission(course_id, r['access_token'], 2851, 709, 30)
+    
+    '''if (request.method == "POST"):
+        Sub1 = request.form.get("Sub1")
+        Sub2 = request.form.get("Sub2")
+        Sub3 = request.form.get("Sub3")
+        Sub4 = request.form.get("Sub4")
+        assign_id = request.form.get("assignment")
+        student_id = request.form.get("student")
+
+        marks=0
+
+        marks += assess(Sub1)
+        marks += assess(Sub2)
+        marks += assess(Sub3)
+        marks += assess(Sub4)
+
+        submission_assessment = get_site_assess_submission(log_creds['course_id'], log_creds['access_token'], assign_id, student_id, marks)
+        
+        return redirect(request.referrer)'''
+    
     params = {
         'code': code,
         'access_token': r['access_token'],
@@ -229,10 +262,15 @@ def oauth():
         'student_names': student_names,
         'student_submissions' : student_submissions,
         'submission_assessment' : submission_assessment,
-
+        
     }
+    
+    ##log_creds.update(params)
 
     return render_template('index.html', **params)
+
+
+   
 
 
 if __name__ == '__main__':

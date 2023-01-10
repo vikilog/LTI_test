@@ -157,6 +157,54 @@
       </div>
     </a>
   </div>
+
+  <form>
+   <div class="list-group w-auto">
+      <form name="assessment" action="">
+      <label for="student">Select Student:</label>
+        <select name="student" id="student">
+          <div>
+            {% for x in student_names %}
+            <option >{{x['name']}}({{x['id']}})</option>
+            {% endfor %}
+          </div>
+        </select>
+        <br><br>
+
+       <label for="assignment">Select Assignment:</label>
+        <select name="assignment" id="assignment">
+          <div>
+            {% for x in course_total_assignments %}
+            <option >{{course_total_assignments[0]['id']}}</option>
+            {% endfor %}
+          </div>
+        </select>
+        <br><br>
+
+        <label >Sub1</label>
+      <input type="radio"  id="Sub1p"  name="Sub1" value="pass" />
+      <input type="radio"  id="Sub1f"  name="Sub1" value="fail" /><br>
+
+         <label >Sub2</label>
+      <input type="radio" id="Sub2p"  name="Sub2" value="pass" />
+      <input type="radio" id="Sub2f"  name="Sub2" value="fail" /><br>
+
+
+         <label >Sub3</label>
+      <input type="radio" id="Sub3p"  name="Sub3" value="pass" />
+      <input type="radio" id="Sub3f"  name="Sub3" value="fail" /><br>
+
+         <label >Sub4</label>
+      <input type="radio" id="Sub4p"  name="Sub4" value="pass" />
+      <input type="radio" id="Sub4f"  name="Sub4" value="fail" />
+
+        <br><br>
+         <button type="submit" formmethod="post" formaction=""  id="submit">Submit</button>
+      </form>
+    </div>
+
+</form>
+
 </table>
 
 
